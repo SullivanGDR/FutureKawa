@@ -23,10 +23,6 @@ async def read_entrepot(entrepot_id: int, db: AsyncSession = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Entrepôt non trouvé")
     return db_entrepot
 
-@router.get("/pays/{pays_id}", response_model=List[EntrepotResponse])
-async def read_entrepots_by_pays(pays_id: int, db: AsyncSession = Depends(get_db)):
-    return await crud_entrepot.get_entrepots_by_pays(db, pays_id=pays_id)
-
 @router.delete("/{entrepot_id}", response_model=EntrepotResponse)
 async def delete_entrepot(entrepot_id: int, db: AsyncSession = Depends(get_db)):
     db_entrepot = await crud_entrepot.delete_entrepot(db, entrepot_id=entrepot_id)

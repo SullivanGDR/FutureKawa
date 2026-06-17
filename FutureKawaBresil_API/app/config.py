@@ -9,8 +9,18 @@ class Settings(BaseSettings):
     APP_NAME: str = "FutureKawaBresil API"
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = False
+    NOM_PAYS: str = "Brésil"
 
-    DATABASE_URL: str  # Obligatoire — défini dans le fichier .env uniquement
+    DATABASE_URL: str 
+
+    # Configuration SMTP Mailtrap
+    MAIL_USERNAME: str = ""
+    MAIL_PASSWORD: str = ""
+    MAIL_FROM: str = "alerts@futurekawa.com"
+    MAIL_PORT: int = 2525
+    MAIL_SERVER: str = "sandbox.smtp.mailtrap.io"
+    MAIL_STARTTLS: bool = True
+    MAIL_SSL_TLS: bool = False
 
     class Config:
         env_file = ".env"

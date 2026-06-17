@@ -12,5 +12,4 @@ class ReleveMesure(Base):
     humidite = Column(DECIMAL(5, 2), nullable=False)
     id_module = Column(String(100), ForeignKey("module_iot.id_module"), nullable=False)
 
-    # Relations
     module = relationship("ModuleIot", back_populates="releves")

@@ -9,6 +9,6 @@ class ModuleIot(Base):
     statut_connexion = Column(String(50), nullable=False)
     id_entrepot = Column(Integer, ForeignKey("entrepot.id_entrepot"), nullable=False)
 
-    # Relations
     entrepot = relationship("Entrepot", back_populates="modules")
     releves = relationship("ReleveMesure", back_populates="module")
+    alertes = relationship("Alerte", back_populates="module")

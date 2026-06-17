@@ -11,10 +11,6 @@ async def get_all_entrepots(db: AsyncSession, skip: int = 0, limit: int = 100):
     result = await db.execute(select(Entrepot).offset(skip).limit(limit))
     return result.scalars().all()
 
-async def get_entrepots_by_pays(db: AsyncSession, pays_id: int):
-    result = await db.execute(select(Entrepot).filter(Entrepot.id_pays == pays_id))
-    return result.scalars().all()
-
 async def create_entrepot(db: AsyncSession, entrepot: EntrepotCreate):
     db_entrepot = Entrepot(**entrepot.model_dump())
     db.add(db_entrepot)

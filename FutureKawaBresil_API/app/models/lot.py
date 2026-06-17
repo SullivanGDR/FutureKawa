@@ -10,6 +10,5 @@ class Lot(Base):
     statut = Column(String(50), nullable=False)
     id_entrepot = Column(Integer, ForeignKey("entrepot.id_entrepot"), nullable=False)
 
-    # Relations
     entrepot = relationship("Entrepot", back_populates="lots")
     alertes = relationship("Alerte", back_populates="lot")

@@ -2,7 +2,7 @@ from pydantic import BaseModel, ConfigDict
 from decimal import Decimal
 from typing import Optional
 
-class PaysExploitationBase(BaseModel):
+class ConfigurationPaysBase(BaseModel):
     nom_pays: str
     email_responsable: str
     temp_ideale: Decimal
@@ -10,9 +10,8 @@ class PaysExploitationBase(BaseModel):
     tolerance_temp: Decimal
     tolerance_hum: Decimal
 
-class PaysExploitationCreate(PaysExploitationBase):
+class ConfigurationPaysCreate(ConfigurationPaysBase):
     pass
 
-class PaysExploitationResponse(PaysExploitationBase):
-    id_pays: int
+class ConfigurationPaysResponse(ConfigurationPaysBase):
     model_config = ConfigDict(from_attributes=True)

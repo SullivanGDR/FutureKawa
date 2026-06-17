@@ -3,7 +3,6 @@ from typing import Optional
 
 class EntrepotBase(BaseModel):
     nom_entrepot: str
-    id_pays: int
 
 class EntrepotCreate(EntrepotBase):
     pass

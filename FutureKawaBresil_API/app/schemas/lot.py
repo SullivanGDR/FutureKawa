@@ -5,7 +5,7 @@ from typing import Optional
 class LotBase(BaseModel):
     id_lot: str
     date_stockage: date
-    statut: str
+    statut: str = "conforme"
     id_entrepot: int
 
 class LotCreate(LotBase):

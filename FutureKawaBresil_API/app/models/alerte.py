@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+from sqlalchemy import Boolean
 from app.models.base import Base
 
 class Alerte(Base):
@@ -11,8 +12,8 @@ class Alerte(Base):
     type_alerte = Column(String(100), nullable=False)
     description = Column(Text, nullable=True)
     id_lot = Column(String(50), ForeignKey("lot.id_lot"), nullable=True)
-    id_entrepot = Column(Integer, ForeignKey("entrepot.id_entrepot"), nullable=True)
+    id_module = Column(String(100), ForeignKey("module_iot.id_module"), nullable=True)
+    traitee = Column(Boolean, server_default='0', default=False, nullable=False)
 
-    # Relations
     lot = relationship("Lot", back_populates="alertes")
-    entrepot = relationship("Entrepot", back_populates="alertes")
+    module = relationship("ModuleIot", back_populates="alertes")

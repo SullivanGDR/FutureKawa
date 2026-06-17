@@ -1,2 +1,17 @@
-.venv
-venv
+# Virtual environments
+.venv/
+venv/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+
+# IDE and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

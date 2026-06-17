@@ -6,7 +6,8 @@ class AlerteBase(BaseModel):
     type_alerte: str
     description: Optional[str] = None
     id_lot: Optional[str] = None
-    id_entrepot: Optional[int] = None
+    id_module: Optional[str] = None
+    traitee: bool = False
 
 class AlerteCreate(AlerteBase):
     pass
