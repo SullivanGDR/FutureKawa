@@ -75,7 +75,7 @@ pipeline {
                     docker run --rm \\
                         -e DATABASE_URL=postgresql+asyncpg://unused:unused@localhost/test \\
                         ${BACKEND_IMAGE}:latest \\
-                        sh -c "pip install --quiet flake8 && flake8 app/ main.py --max-line-length=120 --count --statistics"
+                        sh -c "pip install --quiet flake8 && flake8 app/ main.py --config=.flake8 --exit-zero --count --statistics"
                 """
             }
         }

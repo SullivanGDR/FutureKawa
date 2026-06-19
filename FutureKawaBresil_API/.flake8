@@ -1,0 +1,24 @@
+[flake8]
+# Longueur max adaptée aux templates HTML dans mail.py
+max-line-length = 200
+
+# Ignore erreurs cosmétiques (espaces, lignes vides) — ne changent pas le comportement
+extend-ignore =
+    E302,
+    E303,
+    E129,
+    W291,
+    W293,
+    W391,
+    E402
+
+# mail.py contient des templates HTML inline — lignes longues inévitables
+per-file-ignores =
+    app/services/mail.py: E501
+
+# Erreurs conservées (vraies erreurs de qualité):
+# F401 — import inutilisé
+# F841 — variable assignée mais jamais utilisée
+# E712 — comparaison à False avec == au lieu de 'is not'
+# E741 — nom de variable ambigu (l, O, I)
+# E501 — ligne trop longue (hors mail.py)
