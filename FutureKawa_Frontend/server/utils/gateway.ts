@@ -66,6 +66,22 @@ export async function fetchFromCountry<T = any>(
 
     if (options.method === 'GET' || !options.method) {
       if (path.includes('/configuration-pays')) {
+        try {
+          const bresilUrl = getRegionalApiUrl('Brésil')
+          const backupUrl = `${bresilUrl}/configuration-pays/${country}`
+          const backupConfig = await $fetch<any>(backupUrl)
+          if (backupConfig) {
+            return {
+              ...backupConfig,
+              nom_pays: country,
+              node_pays: country,
+              online: false
+            } as unknown as T
+          }
+        } catch (backupErr) {
+          // ignore backup errors and fallback to static defaults
+        }
+
         return {
           nom_pays: country,
           node_pays: country,

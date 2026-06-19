@@ -12,8 +12,17 @@ async def get_all_configurations_pays(db: AsyncSession, skip: int = 0, limit: in
     return result.scalars().all()
 
 async def create_configuration_pays(db: AsyncSession, config: ConfigurationPaysCreate):
-    db_config = ConfigurationPays(**config.model_dump())
-    db.add(db_config)
+    result = await db.execute(select(ConfigurationPays).filter(ConfigurationPays.nom_pays == config.nom_pays))
+    db_config = result.scalars().first()
+    if db_config:
+        db_config.email_responsable = config.email_responsable
+        db_config.temp_ideale = config.temp_ideale
+        db_config.hum_ideale = config.hum_ideale
+        db_config.tolerance_temp = config.tolerance_temp
+        db_config.tolerance_hum = config.tolerance_hum
+    else:
+        db_config = ConfigurationPays(**config.model_dump())
+        db.add(db_config)
     await db.commit()
     await db.refresh(db_config)
     return db_config

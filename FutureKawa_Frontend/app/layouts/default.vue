@@ -36,7 +36,7 @@
           <component :is="AlertTriangleIcon" :size="18" />
           <span>Journal d'alertes</span>
         </NuxtLink>
-        <NuxtLink to="/parametres" class="nav-item">
+        <NuxtLink v-if="user && user.role === 'admin'" to="/parametres" class="nav-item">
           <component :is="SettingsIcon" :size="18" />
           <span>Configuration</span>
         </NuxtLink>
