@@ -12,7 +12,7 @@
     </div>
 
     <div v-else-if="lot">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+      <div class="responsive-grid-2" style="margin-bottom: 20px;">
         <div class="table-container" style="margin-bottom: 0;">
           <div class="table-header-bar">
             <div class="table-title">DOSSIER LOT : {{ lot.id_lot }}</div>
@@ -21,7 +21,7 @@
               <span class="badge" :class="getStatusBadgeClass(lot.statut)" style="font-size: 0.75rem; padding: 3px 8px;">{{ lot.statut }}</span>
             </div>
           </div>
-          <div style="padding: 18px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px;">
+          <div class="responsive-grid-info" style="padding: 18px 20px;">
             <div>
               <span class="input-label">Pays d'Origine</span>
               <div style="font-size: 0.95rem; font-weight: 700; margin-top: 3px;">{{ lot.nom_pays }}</div>

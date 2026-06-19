@@ -121,7 +121,7 @@
         </button>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+      <div class="responsive-grid-2" style="margin-bottom: 20px;">
         <div class="table-container" style="margin-bottom: 0;">
           <div class="table-header-bar">
             <div class="table-title" style="display: flex; align-items: center; gap: 10px;">
@@ -134,7 +134,7 @@
               </span>
             </div>
           </div>
-          <div style="padding: 18px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px;">
+          <div class="responsive-grid-info" style="padding: 18px 20px;">
             <div>
               <span class="input-label">Identifiant</span>
               <div class="font-mono" style="font-size: 0.95rem; font-weight: 700; margin-top: 3px;">{{ selectedModule.id_module }}</div>
@@ -159,7 +159,7 @@
             <div class="table-title">Dernières Valeurs</div>
           </div>
           <div style="padding: 18px 20px;">
-            <div v-if="detailLastMeasurement" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div v-if="detailLastMeasurement" class="responsive-grid-info-small" style="gap: 16px;">
               <div class="industrial-card" :class="isDetailTempAlert ? 'danger' : 'success'" style="margin-bottom: 0;">
                 <div class="card-title">
                   <span>Température</span>

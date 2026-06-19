@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+    <div class="responsive-grid-2-gap25">
       <div class="table-container">
         <div class="table-header-bar">
           <div class="table-title">ÉDITION CONFIGURATION PAYS</div>
@@ -21,7 +21,7 @@
             <input type="email" v-model="editingConfig.email_responsable" required class="industrial-input" placeholder="ex: exploitation.bresil@futurekawa.com" />
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+          <div class="responsive-grid-form">
             <div class="input-group">
               <label class="input-label">Température Idéale (°C)</label>
               <input type="number" step="0.1" v-model="editingConfig.temp_ideale" required class="industrial-input font-mono" />
@@ -32,7 +32,7 @@
             </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+          <div class="responsive-grid-form">
             <div class="input-group">
               <label class="input-label">Humidité Idéale (%)</label>
               <input type="number" step="0.1" v-model="editingConfig.hum_ideale" required class="industrial-input font-mono" />
@@ -75,7 +75,7 @@
               </span>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.85rem; line-height: 1.5;">
+            <div class="responsive-grid-info-small" style="font-size: 0.85rem; line-height: 1.5;">
               <div>
                 <span class="text-secondary">Seuils Climatiques:</span>
                 <div class="font-mono" style="font-weight: bold; margin-top: 2px;">

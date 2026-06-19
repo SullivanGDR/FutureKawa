@@ -91,6 +91,7 @@ const handleLogin = async () => {
   justify-content: center;
   background-color: var(--bg-app);
   overflow: hidden;
+  padding: 16px;
 }
 
 .grid-overlay {

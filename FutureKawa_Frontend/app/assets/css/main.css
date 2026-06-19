@@ -561,3 +561,155 @@ body {
   color: var(--text-primary);
   border-bottom-color: var(--primary);
 }
+
+/* Mobile & Responsive Adjustments */
+.mobile-menu-toggle-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-mobile-header {
+  display: none;
+  justify-content: flex-end;
+  padding: 15px 20px 0;
+}
+
+.sidebar-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 99;
+  backdrop-filter: blur(2px);
+}
+
+/* Responsive Grid Classes */
+.responsive-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.responsive-grid-2-gap25 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.responsive-grid-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.responsive-grid-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+}
+
+.responsive-grid-info-small {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 1024px) {
+  .responsive-grid-2,
+  .responsive-grid-2-gap25 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .mobile-menu-toggle-btn {
+    display: flex;
+  }
+
+  .sidebar-mobile-header {
+    display: flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100vh;
+    transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+  }
+
+  .sidebar-open .sidebar {
+    left: 0;
+  }
+
+  .sidebar-open .sidebar-backdrop {
+    display: block;
+  }
+
+  .header {
+    padding: 0 16px;
+    height: auto;
+    min-height: 72px;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+  }
+
+  .page-body {
+    padding: 16px;
+  }
+
+  .responsive-grid-info {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Tables responsiveness */
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .industrial-table {
+    display: table;
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-grid-form,
+  .responsive-grid-info-small {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .country-pill-selector {
+    flex-wrap: wrap;
+  }
+  
+  .country-pill {
+    padding: 6px 10px;
+    font-size: 0.7rem;
+  }
+}

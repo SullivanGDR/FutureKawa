@@ -1,6 +1,12 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" :class="{ 'sidebar-open': isSidebarOpen }">
+    <div class="sidebar-backdrop" @click="isSidebarOpen = false"></div>
     <aside class="sidebar">
+      <div class="sidebar-mobile-header">
+        <button class="sidebar-close-btn" @click="isSidebarOpen = false">
+          <component :is="XIcon" :size="20" />
+        </button>
+      </div>
       <div class="sidebar-header">
         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-primary); flex-shrink: 0;">
           <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
@@ -64,8 +70,13 @@
 
     <main class="main-content">
       <header class="header">
-        <div class="header-title" style="font-weight: 600; color: var(--text-primary); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px;">
-          {{ pageTitle }}
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <button class="mobile-menu-toggle-btn" @click="isSidebarOpen = !isSidebarOpen">
+            <component :is="MenuIcon" :size="20" />
+          </button>
+          <div class="header-title" style="font-weight: 600; color: var(--text-primary); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px;">
+            {{ pageTitle }}
+          </div>
         </div>
 
         <div class="header-controls">
@@ -117,12 +128,20 @@ import {
   Activity as ActivityIcon,
   HelpCircle as HelpIcon,
   Cpu as CpuIcon,
-  LogOut as LogOutIcon
+  LogOut as LogOutIcon,
+  Menu as MenuIcon,
+  X as XIcon
 } from 'lucide-vue-next'
 
 const { selectedCountry, selectCountry, countries } = useCountryState()
 const { user, logout } = useAuth()
 const route = useRoute()
+
+const isSidebarOpen = ref(false)
+
+watch(() => route.path, () => {
+  isSidebarOpen.value = false
+})
 
 const pageTitle = computed(() => {
   if (route.path === '/') return 'TABLEAU DE BORD'

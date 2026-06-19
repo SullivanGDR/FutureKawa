@@ -4,8 +4,12 @@ import urllib.request
 import os
 from datetime import datetime
 
+# à activer avec le simulateur en local
 MQTT_BROKER = os.environ.get("MQTT_BROKER", "localhost")
 MQTT_PORT = int(os.environ.get("MQTT_PORT", "1883"))
+# à activer pour simulateur en ligne via Wokwi
+# MQTT_BROKER="broker.hivemq.com"
+# MQTT_PORT=1883
 MQTT_TOPIC = "futurekawa/bresil/mesures"
 API_URL = os.environ.get("API_URL", "http://localhost:8000/api/v1/releves/")
 
