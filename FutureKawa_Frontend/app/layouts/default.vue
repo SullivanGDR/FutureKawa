@@ -36,10 +36,6 @@
           <component :is="AlertTriangleIcon" :size="18" />
           <span>Journal d'alertes</span>
         </NuxtLink>
-        <NuxtLink to="/changement" class="nav-item">
-          <component :is="ActivityIcon" :size="18" />
-          <span>Transition Phase 2</span>
-        </NuxtLink>
         <NuxtLink to="/parametres" class="nav-item">
           <component :is="SettingsIcon" :size="18" />
           <span>Configuration</span>
