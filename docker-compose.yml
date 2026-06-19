@@ -116,7 +116,25 @@ services:
       - mqtt-broker
     restart: unless-stopped
 
+  jenkins:
+    build:
+      context: ./jenkins
+    container_name: futurekawa-jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./jenkins/casc.yaml:/casc.yaml:ro
+    environment:
+      CASC_JENKINS_CONFIG: /casc.yaml
+    group_add:
+      - "0"
+    restart: unless-stopped
+
 volumes:
   pgdata:
   mosquitto-data:
   mosquitto-log:
+  jenkins-data:

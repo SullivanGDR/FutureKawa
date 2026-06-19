@@ -1,0 +1,36 @@
+jenkins:
+  systemMessage: "FutureKawa — Pipeline CI/CD automatisé"
+  numExecutors: 2
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "admin"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+
+unclassified:
+  location:
+    url: "http://localhost:8080/"
+
+# Création automatique du job Pipeline au démarrage
+jobs:
+  - script: >
+      pipelineJob('FutureKawa-Pipeline') {
+        description('CI/CD FutureKawa — Build, Tests, Qualité, Package')
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url('https://github.com/SullivanGDR/FutureKawa.git')
+                }
+                branch('**')
+              }
+            }
+            scriptPath('Jenkinsfile')
+          }
+        }
+      }
