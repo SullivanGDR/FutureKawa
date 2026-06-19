@@ -1,12 +1,13 @@
 import paho.mqtt.client as mqtt
 import json
 import urllib.request
+import os
 from datetime import datetime
 
-MQTT_BROKER = "localhost"
-MQTT_PORT = 1883
+MQTT_BROKER = os.environ.get("MQTT_BROKER", "localhost")
+MQTT_PORT = int(os.environ.get("MQTT_PORT", "1883"))
 MQTT_TOPIC = "futurekawa/bresil/mesures"
-API_URL = "http://localhost:8000/api/v1/releves/"
+API_URL = os.environ.get("API_URL", "http://localhost:8000/api/v1/releves/")
 
 def forward_to_api(payload):
     """Transmet le relevé IoT au serveur FastAPI."""

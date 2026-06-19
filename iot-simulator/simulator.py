@@ -2,9 +2,10 @@ import paho.mqtt.client as mqtt
 import json
 import time
 import random
+import os
 
-BROKER = "localhost"
-PORT = 1883
+BROKER = os.environ.get("MQTT_BROKER", "localhost")
+PORT = int(os.environ.get("MQTT_PORT", "1883"))
 TOPIC = "futurekawa/bresil/mesures"
 INTERVAL = 10  # Publication toutes les 10 secondes
 
