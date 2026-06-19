@@ -150,7 +150,7 @@ const unresolvedAlertsCount = computed(() => {
 })
 
 const agingAlertsCount = computed(() => {
-  return filteredAlertes.value.filter(a => a.type_alerte.toLowerCase().includes('ancien') || a.type_alerte.toLowerCase().includes('pere')).length
+  return filteredAlertes.value.filter(a => a.type_alerte.toLowerCase().includes('ancien') || a.type_alerte.toLowerCase().includes('pere') || a.type_alerte.toLowerCase().includes('pére')).length
 })
 
 const acquitterAlerte = async (alert) => {

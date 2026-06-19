@@ -189,6 +189,8 @@ async def reset_db():
         session.add_all([admin_user, bresil_user, colombie_user, equateur_user])
 
         await session.commit()
+        await session.execute(text("SELECT setval('entrepot_id_entrepot_seq', COALESCE((SELECT MAX(id_entrepot) FROM entrepot), 1))"))
+        await session.commit()
         print("[Database] Donnees de test injectees avec succes !")
 
 if __name__ == "__main__":
