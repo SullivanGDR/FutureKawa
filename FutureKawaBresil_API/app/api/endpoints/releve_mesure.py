@@ -29,7 +29,8 @@ async def create_releve(releve: ReleveMesureCreate, db: AsyncSession = Depends(g
         if entrepot:
             from sqlalchemy.future import select
             from app.models.configuration_pays import ConfigurationPays
-            result = await db.execute(select(ConfigurationPays).limit(1))
+            from app.config import get_settings
+            result = await db.execute(select(ConfigurationPays).filter(ConfigurationPays.nom_pays == get_settings().NOM_PAYS))
             config = result.scalars().first()
             if config:
                 is_alert = False

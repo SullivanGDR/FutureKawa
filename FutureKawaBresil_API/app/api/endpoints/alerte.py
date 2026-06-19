@@ -46,7 +46,8 @@ async def acquitter_alerte(alerte_id: int, db: AsyncSession = Depends(get_db)):
             entrepot = await crud_entrepot.get_entrepot(db, module.id_entrepot)
             from sqlalchemy.future import select
             from app.models.configuration_pays import ConfigurationPays
-            result = await db.execute(select(ConfigurationPays).limit(1))
+            from app.config import get_settings
+            result = await db.execute(select(ConfigurationPays).filter(ConfigurationPays.nom_pays == get_settings().NOM_PAYS))
             config = result.scalars().first()
             releves = await crud_releve.get_releves_by_module(db, module.id_module)
             

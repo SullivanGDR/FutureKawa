@@ -18,7 +18,7 @@ async def check_expired_lots():
         try:
             async with AsyncSessionLocal() as session:
                 from app.models.configuration_pays import ConfigurationPays
-                cfg_result = await session.execute(select(ConfigurationPays).limit(1))
+                cfg_result = await session.execute(select(ConfigurationPays).filter(ConfigurationPays.nom_pays == get_settings().NOM_PAYS))
                 config = cfg_result.scalars().first()
                 nom_pays = config.nom_pays if config else get_settings().NOM_PAYS
 
@@ -76,7 +76,7 @@ async def check_module_connections():
         try:
             async with AsyncSessionLocal() as session:
                 from app.models.configuration_pays import ConfigurationPays
-                cfg_result = await session.execute(select(ConfigurationPays).limit(1))
+                cfg_result = await session.execute(select(ConfigurationPays).filter(ConfigurationPays.nom_pays == get_settings().NOM_PAYS))
                 config = cfg_result.scalars().first()
                 nom_pays = config.nom_pays if config else get_settings().NOM_PAYS
 

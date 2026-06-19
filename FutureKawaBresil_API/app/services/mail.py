@@ -26,7 +26,7 @@ async def get_responsable_email(session, nom_pays: str = None) -> str:
     if nom_pays:
         result = await session.execute(select(ConfigurationPays).filter(ConfigurationPays.nom_pays == nom_pays))
     else:
-        result = await session.execute(select(ConfigurationPays).limit(1))
+        result = await session.execute(select(ConfigurationPays).filter(ConfigurationPays.nom_pays == settings.NOM_PAYS))
     config = result.scalars().first()
     if config and config.email_responsable:
         return config.email_responsable
