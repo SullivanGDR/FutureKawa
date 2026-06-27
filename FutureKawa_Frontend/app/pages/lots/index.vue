@@ -73,7 +73,7 @@
             <td>{{ getEntrepotName(lot.id_entrepot, lot.nom_pays) }}</td>
             <td class="font-mono">{{ formatDate(lot.date_stockage) }}</td>
             <td class="font-mono">
-              {{ formatExpirationDate(lot.date_stockage) }}
+              {{ formatDate(lot.date_peremption) }}
             </td>
             <td class="font-mono">
               {{ getStockingDays(lot.date_stockage) }} jours
@@ -150,6 +150,11 @@
           </div>
 
           <div class="input-group">
+            <label class="input-label">Date de Péremption</label>
+            <input type="date" v-model="newLot.date_peremption" required class="industrial-input font-mono" />
+          </div>
+
+          <div class="input-group">
             <label class="input-label">Statut Initial</label>
             <select v-model="newLot.statut" class="industrial-select">
               <option value="conforme">CONFORME</option>
@@ -198,6 +203,7 @@ const newLot = ref({
   nom_pays: 'Brésil',
   id_entrepot: '',
   date_stockage: new Date().toISOString().substring(0, 10),
+  date_peremption: '',
   statut: 'conforme'
 })
 
@@ -215,12 +221,24 @@ const addFormAvailableEntrepots = computed(() => {
   return entrepots.value.filter(e => e.nom_pays === newLot.value.nom_pays)
 })
 
+const updateDefaultExpiration = (stockageStr) => {
+  if (!stockageStr) return
+  const date = new Date(stockageStr)
+  date.setDate(date.getDate() + 365)
+  newLot.value.date_peremption = date.toISOString().substring(0, 10)
+}
+
+watch(() => newLot.value.date_stockage, (newVal) => {
+  updateDefaultExpiration(newVal)
+})
+
 watch(() => newLot.value.nom_pays, (newVal) => {
   const matching = entrepots.value?.filter(e => e.nom_pays === newVal) || []
   newLot.value.id_entrepot = matching.length > 0 ? matching[0].id_entrepot : ''
 })
 
 onMounted(() => {
+  updateDefaultExpiration(newLot.value.date_stockage)
   if (entrepots.value) {
     const matching = entrepots.value.filter(e => e.nom_pays === newLot.value.nom_pays)
     if (matching.length > 0) {
@@ -324,6 +342,7 @@ const createLot = async () => {
       body: {
         id_lot: newLot.value.id_lot,
         date_stockage: newLot.value.date_stockage,
+        date_peremption: newLot.value.date_peremption,
         statut: newLot.value.statut,
         id_entrepot: Number(newLot.value.id_entrepot),
         nom_pays: newLot.value.nom_pays

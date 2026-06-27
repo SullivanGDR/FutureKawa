@@ -29,15 +29,14 @@ async def check_expired_lots():
                 expired_lots = []
                 
                 for lot in lots:
-                    diff = (now - lot.date_stockage).days
-                    if diff > 365:
+                    if now > lot.date_peremption:
                         lot.statut = 'périmé'
                         
                         alert_exist = await session.execute(
                             select(Alerte).filter(Alerte.id_lot == lot.id_lot, Alerte.type_alerte == "Péremption", Alerte.traitee == False)
                         )
                         if not alert_exist.scalars().first():
-                            desc = f"Le lot {lot.id_lot} a dépassé 365 jours de stockage ({diff} jours)."
+                            desc = f"Le lot {lot.id_lot} a dépassé sa date de péremption ({lot.date_peremption.strftime('%d/%m/%Y')})."
                             from app.schemas.alerte import AlerteCreate
                             from app.crud import alerte as crud_alerte
                             
@@ -54,6 +53,7 @@ async def check_expired_lots():
                             entrepot = ent_result.scalars().first()
                             nom_entrepot = entrepot.nom_entrepot if entrepot else "Entrepôt Inconnu"
                             
+                            diff = (now - lot.date_stockage).days
                             expired_lots.append({
                                 "id_lot": lot.id_lot,
                                 "nom_entrepot": nom_entrepot,

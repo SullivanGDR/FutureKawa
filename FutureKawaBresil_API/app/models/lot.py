@@ -7,6 +7,7 @@ class Lot(Base):
 
     id_lot = Column(String(50), primary_key=True, index=True)
     date_stockage = Column(Date, nullable=False)
+    date_peremption = Column(Date, nullable=False)
     statut = Column(String(50), nullable=False)
     id_entrepot = Column(Integer, ForeignKey("entrepot.id_entrepot"), nullable=False)
 

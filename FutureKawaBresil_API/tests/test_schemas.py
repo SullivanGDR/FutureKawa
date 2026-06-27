@@ -13,25 +13,25 @@ from app.schemas.auth import LoginRequest, UserResponse
 
 class TestLotSchema:
     def test_lot_create_valid(self):
-        lot = LotCreate(id_lot="LOT-TEST-001", date_stockage=date(2024, 1, 1), id_entrepot=1)
+        lot = LotCreate(id_lot="LOT-TEST-001", date_stockage=date(2024, 1, 1), date_peremption=date(2024, 12, 31), id_entrepot=1)
         assert lot.id_lot == "LOT-TEST-001"
         assert lot.id_entrepot == 1
 
     def test_lot_statut_default_conforme(self):
-        lot = LotCreate(id_lot="L001", date_stockage=date.today(), id_entrepot=1)
+        lot = LotCreate(id_lot="L001", date_stockage=date.today(), date_peremption=date.today(), id_entrepot=1)
         assert lot.statut == "conforme"
 
     def test_lot_statut_custom(self):
-        lot = LotCreate(id_lot="L002", date_stockage=date.today(), statut="périmé", id_entrepot=2)
+        lot = LotCreate(id_lot="L002", date_stockage=date.today(), date_peremption=date.today(), statut="périmé", id_entrepot=2)
         assert lot.statut == "périmé"
 
     def test_lot_missing_id_raises(self):
         with pytest.raises(ValidationError):
-            LotCreate(date_stockage=date.today(), id_entrepot=1)
+            LotCreate(date_stockage=date.today(), date_peremption=date.today(), id_entrepot=1)
 
     def test_lot_missing_entrepot_raises(self):
         with pytest.raises(ValidationError):
-            LotCreate(id_lot="L001", date_stockage=date.today())
+            LotCreate(id_lot="L001", date_stockage=date.today(), date_peremption=date.today())
 
 
 class TestAlerteSchema:

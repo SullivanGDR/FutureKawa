@@ -46,6 +46,7 @@ CREATE TABLE entrepot (
 CREATE TABLE lot (
     id_lot VARCHAR(50) PRIMARY KEY,
     date_stockage DATE NOT NULL,
+    date_peremption DATE NOT NULL,
     statut VARCHAR(50) NOT NULL,
     id_entrepot INT REFERENCES entrepot(id_entrepot) ON DELETE CASCADE NOT NULL
 );
@@ -153,11 +154,11 @@ INSERT INTO releve_mesure (date_heure, temperature, humidite, id_module) VALUES
 (NOW() - INTERVAL '45 minutes', 29.20, 54.80, 'br-santos-offline');
 
 -- F. Lots (Exemples de lots de café conformes, en alerte et périmés)
-INSERT INTO lot (id_lot, date_stockage, statut, id_entrepot) VALUES
-('LOT-BR-001', CURRENT_DATE - INTERVAL '400 days', 'périmé', 1),
-('LOT-BR-002', CURRENT_DATE - INTERVAL '120 days', 'conforme', 1),
-('LOT-BR-003', CURRENT_DATE - INTERVAL '60 days', 'en alerte', 2),
-('LOT-COL-001', CURRENT_DATE - INTERVAL '15 days', 'conforme', 3);
+INSERT INTO lot (id_lot, date_stockage, date_peremption, statut, id_entrepot) VALUES
+('LOT-BR-001', CURRENT_DATE - INTERVAL '400 days', CURRENT_DATE - INTERVAL '400 days' + INTERVAL '365 days', 'périmé', 1),
+('LOT-BR-002', CURRENT_DATE - INTERVAL '120 days', CURRENT_DATE - INTERVAL '120 days' + INTERVAL '365 days', 'conforme', 1),
+('LOT-BR-003', CURRENT_DATE - INTERVAL '60 days', CURRENT_DATE - INTERVAL '60 days' + INTERVAL '365 days', 'en alerte', 2),
+('LOT-COL-001', CURRENT_DATE - INTERVAL '15 days', CURRENT_DATE - INTERVAL '15 days' + INTERVAL '365 days', 'conforme', 3);
 
 -- G. Alertes actives sur le parc
 INSERT INTO alerte (type_alerte, description, id_lot, id_module, traitee) VALUES

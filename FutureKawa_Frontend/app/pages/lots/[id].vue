@@ -40,9 +40,9 @@
             </div>
 
             <div>
-              <span class="input-label">Date Limite de Péremption (365 j)</span>
+              <span class="input-label">Date Limite de Péremption</span>
               <div class="font-mono" style="font-size: 0.9rem; font-weight: 700; margin-top: 3px;">
-                {{ formatExpirationDate(lot.date_stockage) }}
+                {{ formatDate(lot.date_peremption) }}
               </div>
             </div>
 
@@ -51,10 +51,10 @@
               <div class="font-mono" style="font-size: 0.9rem; font-weight: 700; margin-top: 3px;">
                 {{ stockingDays }} jours
                 <span v-if="lot.statut === 'périmé'" style="display: block; font-size: 0.75rem; color: var(--danger); font-weight: bold; margin-top: 4px;">
-                  🚫 PÉRIMÉ : Stockage supérieur à la limite autorisée de 365 jours.
+                  🚫 PÉRIMÉ : La date limite de péremption est dépassée.
                 </span>
                 <span v-else style="display: block; font-size: 0.75rem; font-weight: normal; color: var(--success); margin-top: 4px;">
-                  ✓ Stockage conforme (il reste {{ 365 - stockingDays }} jours).
+                  ✓ Stockage conforme (il reste {{ daysLeft }} jours).
                 </span>
               </div>
             </div>
@@ -239,6 +239,12 @@ const stockingDays = computed(() => {
   if (!lot.value) return 0
   const diffTime = Math.abs(new Date() - new Date(lot.value.date_stockage))
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+})
+
+const daysLeft = computed(() => {
+  if (!lot.value || !lot.value.date_peremption) return 0
+  const diffTime = new Date(lot.value.date_peremption) - new Date()
+  return Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)))
 })
 
 const associatedModules = computed(() => {

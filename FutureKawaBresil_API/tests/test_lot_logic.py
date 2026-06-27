@@ -17,8 +17,8 @@ def calcul_age_lot(date_stockage: date) -> int:
     return (date.today() - date_stockage).days
 
 
-def est_lot_perime(date_stockage: date) -> bool:
-    return calcul_age_lot(date_stockage) > 365
+def est_lot_perime(date_peremption: date) -> bool:
+    return date.today() > date_peremption
 
 
 def est_temperature_hors_seuil(temp: Decimal, temp_ideale: Decimal, tolerance: Decimal) -> bool:
@@ -33,23 +33,20 @@ def est_humidite_hors_seuil(hum: Decimal, hum_ideale: Decimal, tolerance: Decima
 
 class TestExpiration:
     def test_lot_recente_non_perime(self):
-        recent = date.today() - timedelta(days=100)
-        assert est_lot_perime(recent) is False
+        peremp = date.today() + timedelta(days=265)
+        assert est_lot_perime(peremp) is False
 
-    def test_lot_exactement_365_jours_non_perime(self):
-        limite = date.today() - timedelta(days=365)
-        assert est_lot_perime(limite) is False
+    def test_lot_exactement_aujourd_hui_non_perime(self):
+        peremp = date.today()
+        assert est_lot_perime(peremp) is False
 
-    def test_lot_366_jours_perime(self):
-        expiré = date.today() - timedelta(days=366)
-        assert est_lot_perime(expiré) is True
+    def test_lot_perime_depuis_hier(self):
+        peremp = date.today() - timedelta(days=1)
+        assert est_lot_perime(peremp) is True
 
-    def test_lot_400_jours_perime(self):
-        très_vieux = date.today() - timedelta(days=400)
-        assert est_lot_perime(très_vieux) is True
-
-    def test_lot_stocke_aujourd_hui_non_perime(self):
-        assert est_lot_perime(date.today()) is False
+    def test_lot_perime_depuis_longtemps(self):
+        peremp = date.today() - timedelta(days=35)
+        assert est_lot_perime(peremp) is True
 
     def test_calcul_age_lot_correct(self):
         il_y_a_30_jours = date.today() - timedelta(days=30)

@@ -121,13 +121,17 @@ async def reset_db():
 
         # E. Lots (FIFO validation)
         # Lot 1 : Brésil Santos - Périmé (> 365 jours)
-        l1 = Lot(id_lot="LOT-BR-001", date_stockage=datetime.now().date() - timedelta(days=400), statut="périmé", id_entrepot=1)
+        l1_stockage = datetime.now().date() - timedelta(days=400)
+        l1 = Lot(id_lot="LOT-BR-001", date_stockage=l1_stockage, date_peremption=l1_stockage + timedelta(days=365), statut="périmé", id_entrepot=1)
         # Lot 2 : Brésil Santos - Conforme
-        l2 = Lot(id_lot="LOT-BR-002", date_stockage=datetime.now().date() - timedelta(days=120), statut="conforme", id_entrepot=1)
+        l2_stockage = datetime.now().date() - timedelta(days=120)
+        l2 = Lot(id_lot="LOT-BR-002", date_stockage=l2_stockage, date_peremption=l2_stockage + timedelta(days=365), statut="conforme", id_entrepot=1)
         # Lot 3 : Brésil Rio - En alerte (à cause du module br-rio-02 qui surchauffe)
-        l3 = Lot(id_lot="LOT-BR-003", date_stockage=datetime.now().date() - timedelta(days=60), statut="en alerte", id_entrepot=2)
+        l3_stockage = datetime.now().date() - timedelta(days=60)
+        l3 = Lot(id_lot="LOT-BR-003", date_stockage=l3_stockage, date_peremption=l3_stockage + timedelta(days=365), statut="en alerte", id_entrepot=2)
         # Lot 4 : Colombie - Conforme
-        l4 = Lot(id_lot="LOT-COL-001", date_stockage=datetime.now().date() - timedelta(days=15), statut="conforme", id_entrepot=3)
+        l4_stockage = datetime.now().date() - timedelta(days=15)
+        l4 = Lot(id_lot="LOT-COL-001", date_stockage=l4_stockage, date_peremption=l4_stockage + timedelta(days=365), statut="conforme", id_entrepot=3)
         session.add_all([l1, l2, l3, l4])
 
         # F. Alertes
