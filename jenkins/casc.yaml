@@ -15,7 +15,6 @@ unclassified:
   location:
     url: "http://localhost:8080/"
 
-# Création automatique du job Pipeline au démarrage
 jobs:
   - script: >
       pipelineJob('FutureKawa-Pipeline') {

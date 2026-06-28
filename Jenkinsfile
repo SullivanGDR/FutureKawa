@@ -98,7 +98,6 @@ pipeline {
             echo "Pipeline echoue — build #${BUILD_TAG}"
         }
         always {
-            // Nettoyage des conteneurs de test uniquement — PAS docker compose down (tuerait Jenkins)
             sh "docker rm test-backend-${BUILD_TAG} test-frontend-${BUILD_TAG} 2>/dev/null || true"
         }
     }

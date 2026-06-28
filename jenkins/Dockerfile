@@ -2,7 +2,6 @@ FROM jenkins/jenkins:lts-jdk21
 
 USER root
 
-# Docker CLI + Compose
 RUN apt-get update && \
     apt-get install -y ca-certificates curl gnupg lsb-release && \
     curl -fsSL https://download.docker.com/linux/debian/gpg \
@@ -14,8 +13,7 @@ RUN apt-get update && \
     apt-get install -y docker-ce-cli docker-compose-plugin && \
     rm -rf /var/lib/apt/lists/*
 
-# GID 999 = groupe docker standard Linux
-# group_add: ["0"] dans docker-compose couvre Docker Desktop (GID 0)
+
 RUN groupadd -f -g 999 docker && usermod -aG docker jenkins
 
 USER jenkins
